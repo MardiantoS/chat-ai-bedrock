@@ -1,70 +1,147 @@
-# Getting Started with Create React App
+# AI Chat Application with Amazon Bedrock
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple web application that allows users to chat with a Generative AI Foundation Model (Claude 3.7 Sonnet), powered by Amazon Bedrock and AWS Amplify.
 
-## Available Scripts
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- Real-time chat conversation with Claude FM
+- Maintains conversation context for more coherent interactions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Architecture Diagram
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+```
+┌─────────────────┐     ┌───────────────┐     ┌──────────────┐     ┌─────────────────┐
+│                 │     │               │     │              │     │                 │
+│  React Frontend │────▶│ API Gateway   │────▶│ AWS Lambda   │────▶│ Amazon Bedrock  │
+│  (with Amplify  │     │ (managed by   │     │ (managed by  │     │ Claude 3.7      │
+│   JS Library)   │◀────│  Amplify)     │◀────│  Amplify)    │◀────│ Sonnet          │
+│                 │     │               │     │              │     │                 │
+└─────────────────┘     └───────────────┘     └──────────────┘     └─────────────────┘
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Technologies Used
 
-### `npm run build`
+- AWS Amplify for fullstack single web app development
+- React.js for frontend development
+- Amazon API Gateway for REST API endpoints
+- AWS Lambda (Python) for serverless backend processing
+- Amazon Bedrock with Claude 3.7 Sonnet FM
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- Node.js and npm installed
+- AWS Amplify package
+- AWS account with appropriate permissions
+- AWS CLI configured
+- Access to Amazon Bedrock FM models (e.g., Claude 3.7 Sonnet)
+  - In the AWS Console, navigate to Amazon Bedrock and request access to Claude 3.7 Sonnet if you haven't already.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Setup and Installation
 
-### `npm run eject`
+### 1. Clone the repository
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+git clone https://github.com/MardiantoS/chat-ai-bedrock.git
+cd chat-ai-bedrock
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### 2. Install dependencies
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```bash
+npm install
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 3. Initialize Amplify
 
-## Learn More
+```bash
+npm install -g @aws-amplify/cli
+amplify configure
+amplify init
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Follow the prompts to configure your Amplify project.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 4. Deploy backend services: API Gateway and Lambda
 
-### Code Splitting
+```bash
+amplify push
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 5. Start the development server locally
 
-### Analyzing the Bundle Size
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Project Structure
 
-### Making a Progressive Web App
+```
+claude-chat-app/
+├── amplify/              # AWS Amplify configuration and backend code
+│   └── backend/
+│       ├── api/          # API Gateway configuration
+│       └── function/     # Lambda function code
+├── public/               # Public assets
+├── src/
+│   ├── App.js            # Main application component
+│   ├── App.css           # Application styles
+│   └── index.js          # Application entry point
+│   
+├── .gitignore            # Git ignore file
+├── package.json          # NPM dependencies
+└── README.md             # Project documentation
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Deployment
 
-### Advanced Configuration
+To deploy the application to AWS Amplify Hosting:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Make sure to run, if you haven't already
 
-### Deployment
+```bash
+amplify hosting add
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+then
 
-### `npm run build` fails to minify
+```bash
+amplify publish
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Configuration
+
+The application uses AWS Amplify to manage the backend resources. The configuration is stored in `src/aws-exports.js` which is generated by the Amplify CLI.
+
+## Security Considerations
+
+- Ensure proper IAM permissions are set for the Lambda function
+- Consider implementing user authentication for production use
+- Set up appropriate rate limiting on your API Gateway
+- Monitor usage to control costs
+
+## Future Enhancements
+
+- User authentication page 
+- Storage for persistent conversation history 
+- Streaming responses
+- File upload capabilities
+- Custom instructions for Claude
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Citation
+
+If you use this code in your projects or research, please include the following citation:
+
+> Mardianto Hadiputro. (2025). AI Chat Application with Amazon Bedrock. GitHub. https://github.com/MardiantoS/chat-ai-bedrock
+
+## Acknowledgments
+
+- Amazon Web Services for the infrastructure
+- Anthropic for the Claude Foundation Model
+
+---
