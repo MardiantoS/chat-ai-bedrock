@@ -1,0 +1,11 @@
+[
+    {
+        "Action": [
+            "bedrock:InvokeModel"
+        ],
+        "Resource": [
+            "arn:aws:bedrock:*:*:*"
+        ],
+        "Effect": "Allow"
+    }
+]

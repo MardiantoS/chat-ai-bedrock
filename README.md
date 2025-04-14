@@ -10,16 +10,7 @@ A simple web application that allows users to chat with a Generative AI Foundati
 
 ## Architecture Diagram
 
-
-```
-┌─────────────────┐     ┌───────────────┐     ┌──────────────┐     ┌─────────────────┐
-│                 │     │               │     │              │     │                 │
-│  React Frontend │────▶│ API Gateway   │────▶│ AWS Lambda   │────▶│ Amazon Bedrock  │
-│  (with Amplify  │     │ (managed by   │     │ (managed by  │     │ Claude 3.7      │
-│   JS Library)   │◀────│  Amplify)     │◀────│  Amplify)    │◀────│ Sonnet          │
-│                 │     │               │     │              │     │                 │
-└─────────────────┘     └───────────────┘     └──────────────┘     └─────────────────┘
-```
+![AI Chat Application Architecture Diagram](images/chat-ai-bedrock-arch-diagram.png "Architecture Diagram")
 
 ## Technologies Used
 
