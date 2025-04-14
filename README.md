@@ -46,9 +46,15 @@ npm install
 
 ### 3. Initialize Amplify
 
+If you haven't installed AWS Amplify packages and/or configured it, run below:
+
 ```bash
 npm install -g @aws-amplify/cli
 amplify configure
+```
+
+afterwards, run this:
+```bash
 amplify init
 ```
 
